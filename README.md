@@ -21,7 +21,7 @@
 
 ## 环境要求
 
-- DataGrip **2026.2**(build 262)或更高版本
+- DataGrip **2026.2**(build 262)或更高版本 低版本未测试
 - 已配置好的数据源。任何能通过 JDBC 访问的数据库都可以;
   PostgreSQL、MySQL / MariaDB、SQL Server 与 H2 均已实测。
 
@@ -31,6 +31,7 @@
 
 **从本地文件安装** —— Settings → Plugins → ⚙ → *Install Plugin from Disk…* →
 选择 `mock-data-generator-<版本号>.zip` → 重启 IDE。
+插件安装包
 
 ## 使用
 
@@ -42,6 +43,8 @@
 4. 输入生成条数,可以先点击「**预览 5 行**」,确认后执行插入。
 
 自增列与标识列默认跳过 —— 不用管它们,交给数据库自行填充。
+
+<img width="1733" height="776" alt="image" src="https://github.com/user-attachments/assets/a180f872-a352-4f43-b2c7-86d1d38522d2" />
 
 ## 隐私
 
