@@ -31,7 +31,7 @@
 
 **从本地文件安装** —— Settings → Plugins → ⚙ → *Install Plugin from Disk…* →
 选择 `mock-data-generator-<版本号>.zip` → 重启 IDE。
-插件安装包
+插件安装包链接：https://github.com/drivefqy/mock-data-generator/blob/main/dist/mock-data-generator-1.0.0.zip
 
 ## 使用
 
