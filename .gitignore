@@ -1,0 +1,39 @@
+# ---- 构建产物 ----
+build/
+out/
+.gradle/
+.gradle-home/
+.kotlin/
+.intellijPlatform/
+
+# ---- IDE ----
+.idea/
+*.iml
+
+# ---- 本地工具链(自带的 Gradle 发行包,不入库) ----
+.tools/
+
+# ---- 本地助手数据(内部记录,绝不入库) ----
+.workbuddy/
+
+# ---- 校验/构建过程产生的临时文本 ----
+.env_check*.txt
+.api_*.txt
+.net_check.txt
+.smoke_*.txt
+.pkg_*.txt
+.check*.txt
+.final*.txt
+.instver.txt
+.tree.txt
+.rel*.txt
+smoke_result.txt
+
+# ---- 一次性脚本与中间产物(图片处理、仓库操作等) ----
+.preview/
+ImgFix.java
+.imgfix*.log
+.g*.txt
+.c*.txt
+.s*.txt
+.pip.log

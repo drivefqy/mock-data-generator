@@ -1,0 +1,95 @@
+<idea-plugin>
+    <id>com.github.mockdatagen</id>
+    <name>Mock Data Generator</name>
+    <vendor>Dérive</vendor>
+
+    <description><![CDATA[
+    <p><b>Mock Data Generator</b> — generate realistic mock data for database tables, right inside
+    DataGrip. Pick a data source, pick a table, adjust a few columns, insert.
+    No scripts, no external tools.</p>
+
+    <p><b>在 DataGrip 中为数据库表批量生成模拟数据</b> —— 选择数据源与目标表,按列配置生成规则,
+    设置条数后一键插入。不需要写脚本,也不依赖外部工具。</p>
+
+    <p><b>Highlights</b></p>
+    <ul>
+      <li><b>Per-column rules</b> — 44 built-in generators: names, phone, email, ID card, IP, MAC,
+          URL, Chinese address, company, brand, product, UUID, auto-increment, sequences,
+          ranges, enums, regex patterns, dates and times.</li>
+      <li><b>Smart suggestions</b> — each column gets a recommended rule inferred from its name and
+          type (marked with a dot), so you usually only adjust the few columns that matter.</li>
+      <li><b>Safe by default</b> — auto-increment and unique columns are handled explicitly
+          (skip, or continue from the current MAX), and a unique-constraint violation triggers a
+          one-shot self-repair instead of failing the whole batch.</li>
+      <li><b>Structure checked against the database</b> — column list, primary keys and unique
+          constraints are read from the live connection, so an out-of-date introspection cache
+          cannot silently drop a NOT NULL column.</li>
+      <li><b>Any row count</b> — 1 to 100,000,000 rows via JDBC batch insert (500 per batch,
+          transactional, rollback on failure), with a 5-row SQL preview before you commit.</li>
+      <li><b>English / 中文</b> — switch the UI language from the toggle in the dialog.</li>
+    </ul>
+
+    <p><b>功能亮点</b></p>
+    <ul>
+      <li><b>按列配置生成规则</b> —— 44 种内置生成器:姓名、手机号、邮箱、身份证号、IP、MAC、URL、
+          中文地址、公司名称、品牌、产品、UUID、自增、序列号、数值区间、枚举、正则模板、日期时间等。</li>
+      <li><b>智能推荐</b> —— 每列按列名与类型自动推断一条推荐规则(以圆点标记),通常只需调整少数据列。</li>
+      <li><b>默认安全</b> —— 自增列与唯一列会被显式处理(跳过,或从当前最大值续接);唯一约束冲突时
+          自动一次性修复,而不是整批失败。</li>
+      <li><b>结构以数据库为准</b> —— 列清单、主键与唯一约束都从真实连接读取,内省缓存过期也不会
+          漏掉 NOT NULL 列。</li>
+      <li><b>任意行数</b> —— 1 到 1 亿行,JDBC 批量插入(每批 500 行,事务内执行,失败即回滚),
+          插入前可预览前 5 行 SQL。</li>
+      <li><b>中英文界面</b> —— 对话框内置语言切换。</li>
+    </ul>
+
+    <p><b>用法 / Usage</b></p>
+    <ul>
+      <li>Tools 菜单 → 生成 Mock 数据…,或在数据库窗口中右击某张表直接打开(默认选中该表)。</li>
+      <li>选择数据源与目标表(可按表名 / schema 搜索)。</li>
+      <li>逐列选择生成规则,点击「参数」单元格配置枚举候选值、数值区间、时间范围、正则模板;
+          按需设置空值比例(生成 SQL NULL 的百分比)。</li>
+      <li>设置生成条数 → 可先「预览 5 行」→ 确认后一键插入。自增列默认跳过,交给数据库填充。</li>
+    </ul>
+
+    <p><b>Privacy</b></p>
+    <ul>
+      <li>完全本地运行:无网络连接、无遥测、无埋点、无崩溃上报 —— 不会向任何地方发送数据。</li>
+      <li>只从所选数据源读取表结构(续接自增序列时需要读取该列当前最大值);只有在点击插入之后,
+          才写入你明确选择的表。</li>
+      <li>不读取也不存储凭据;日志中的 JDBC URL 已做脱敏处理。</li>
+    </ul>
+
+    ]]></description>
+
+    <change-notes><![CDATA[
+    <b>1.0.0</b>
+    <ul>
+      <li>First public release.</li>
+      <li>Per-column mock data generation with 44 built-in rules and per-column smart suggestions.</li>
+      <li>Live structure verification (columns, primary keys, unique constraints) against the database.</li>
+      <li>Unique-constraint self-repair and rollback-safe batch insert.</li>
+      <li>Table search, right-click a table to open it directly, 5-row SQL preview.</li>
+      <li>English / Chinese UI with an in-dialog language toggle.</li>
+    </ul>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.database</depends>
+
+    <resource-bundle>messages.MockDataBundle</resource-bundle>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="MockDataGenerator" displayType="BALLOON"/>
+    </extensions>
+
+    <actions>
+        <!-- 菜单文案由 MockDataAction 从 MockDataBundle 读取,跟随 IDE 语言 -->
+        <action id="MockDataGenerator.GenerateAction"
+                class="com.github.mockdatagen.MockDataAction"
+                icon="AllIcons.Actions.Execute">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <add-to-group group-id="DatabaseViewPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
